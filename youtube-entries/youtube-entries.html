@@ -1,0 +1,39 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+
+<polymer-element name="youtube-entries" attributes="url" noscript>
+  <template>
+    <style>
+      .entry {
+        width:300px;
+        height:300px;
+        margin:10px;
+        float:left;
+        background-color:#EEEEEE;
+        overflow:hidden;
+      }
+      .title_back {
+        height:75px;
+	background-color:#111111;
+      }
+      .title {
+        color:#EEEEEE;
+	margin:0px;
+	padding:5px;
+      }
+    </style>
+
+    <core-ajax url="{{url}}" handleAs="json" auto response="{{resp}}"></core-ajax>
+    <template repeat="{{ent in resp.feed.entry}}">
+      <div class="entry">
+	<div class="title_back">
+          <p class="title">{{ent.title.$t}}</p>
+        </div>
+        <a href="{{ent.link[0].href}}">
+          <img src="{{ent.media$group.media$thumbnail[0].url}}">
+        </a>
+      </div>
+    </template>
+  </template>
+</polymer-element>
